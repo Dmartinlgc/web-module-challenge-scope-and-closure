@@ -42,7 +42,7 @@ function counterMaker() {
    return count++;
   }
 }
-
+ //counter1 is the preferred method and would be considered good coding practice   
 const counter1 = counterMaker();
 
 // counter2 code
@@ -51,7 +51,7 @@ let count = 0;
 function counter2() {
   return count++;
 }
-
+//counter2 is hoisting the variable count before count has been declared, if the theme was true throughout the rest of the body of code it would make reviewing the code faster
 
 /* ⚾️⚾️⚾️ Task 2: inning() ⚾️⚾️⚾️
 Use the inning function below to do the following:
@@ -62,8 +62,8 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-function inning(/*Code Here*/){
-    /*Code Here*/
+function inning(){
+    return Math.floor(Math.random() * Math.floor (2) + 1);
 }
 
 
@@ -81,8 +81,17 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(/*code Here*/){
-  /*Code Here*/
+function finalScore(inning, played){
+  let home = 0;
+  let away = 0; 
+  for (let i = 0; i < played; i++){
+    home+=inning();
+    away+=inning(); 
+   }
+   return{
+    Home:home,
+    Away:away
+    }
 }
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
@@ -90,8 +99,11 @@ Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
+function getInningScore(inning) {
+  return{
+    Home:inning(),
+    Away:inning()
+  }
 }
 
 
@@ -136,9 +148,33 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(getInningScore, inning, played) {
+  let scoreBoard = [];
+  let awayTotal=0;
+  let homeTotal=0;
+  for(let i = 0; i < played; i++){
+    
+    let inningScore = getInningScore(inning);
+    let inningMessage ="Away " + inningScore.Away + " - Home " + inningScore.Home;
+    let prefix = "";
+    awayTotal += inningScore.Away;
+    homeTotal += inningScore.Home;
+    
+    if ( awayTotal === homeTotal && i === played -1){
+      prefix= "This game will require extra innings: ";
+     inningMessage ="Away " + awayTotal + " - Home " + homeTotal;
+     } else if (i === played -1){
+       prefix= "Final Score: ";
+       inningMessage ="Away " + awayTotal + " - Home " + homeTotal;
+     } else{
+      prefix="Inning " + (i+1) + ": ";
+     }
+    scoreBoard.push(prefix +inningMessage)
+    
+  }
 }
+
+
 
 
 

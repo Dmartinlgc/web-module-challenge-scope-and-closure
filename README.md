@@ -43,6 +43,7 @@ Find the file `index.js` and complete the tasks.
 Edit the `ReadMe` file with your answers.
 
 1. In your own words, define closure (1-2 sentences).
+a closure happens when a child function reaches to in parent for context of a variable or function 
 2. Study the following code, then answer the questions below.
 
 ```js
@@ -64,8 +65,11 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+${name} because its reaching into its parent for context 
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
+the function they both use to obtain value is the same but the value they receive my not be the same. 
 c. What is the lexical scope of `newRoll`? 
+function scoped 
 
 
 ### Task 3 - Stretch Goals

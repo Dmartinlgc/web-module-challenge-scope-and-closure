@@ -29,10 +29,18 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   
   1. What is the difference between counter1 and counter2?
   
+  the variable let count = 0; in counter2 is globally scoped and does not have a closure.  
+  
   2. Which of the two uses a closure? How can you tell?
+  
+  counter1 contains the closer count++ reaches out to its parent function to let count = 0 for context  
   
   3. In what scenario would the counter1 code be preferable? In what scenario would 
      counter2 be better?  
+     
+     counter1 would be most useful for keeping track of 2 teams scores as you could assign each team a value  of counterMaker Example const redTeam = counterMaker(); or const blueTeam = counterMaker();
+     when invoked redTeam() and blueTeam would both increment and because of the closure, have a place in memory. 
+       counter 2 would be better keeping track of innings or other simple singular processes.
 */
 
 // counter1 code
@@ -62,8 +70,8 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-function inning(/*Code Here*/){
-    /*Code Here*/
+function inning(){
+    return Math.round(Math.random()* 2);
 }
 
 
@@ -81,17 +89,27 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(/*code Here*/){
-  /*Code Here*/
+function finalScore(inning, toBePlayed){ 
+  const score = {Home:0, Away:0}  
+  for(let i = 0; i < toBePlayed; i++){
+     score.home += inning()
+     score.away += inning()
+    }
+  return score;
 }
+
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
 Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
+function getInningScore(inning) {
+  const score = {Home:0, Away:0} 
+  score.home = inning()
+  score.away = inning() 
+   
+  return score;
 }
 
 
@@ -136,9 +154,24 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(getInningScore,inning,num) {  //receive 2 functions as params 
+  const scoreByInning = [];  //declared empty array 
+   let awayFinal = 0; //declared variable to track aways final score 
+   let homeFinal = 0;  // declared variable to track home final score 
+  for(i = 1; i <= num; i++){  //loop: i is === to 1 avoid the first inning be tallied as 0  
+    let inningScore = getInningScore(inning); // declared a variable to a function with the inning function as an argument to  this returns the object from GetINNING SCORE 
+    awayFinal += inningScore.Away; //AWAY and HOME final score are be tallied within the for loop 
+    homeFinal += inningScore.Home;
+    scoreByInning.push(`inning ${i}: Away${inningScore.Away} - Home ${inningScore.Home}`); // {i} is === to the current inning iteration  
+   } 
+   if(awayFinal === homeFinal ){ // compare tie outcome
+    scoreByInning.push(`This game will require more innings: ${awayFinal} - ${homeFinal} `) // .push tie string to array 
+     }else{ scoreByInning.push(`Final Score: ${awayFinal} - ${homeFinal}`) //else  return win/lose outcome  
+
+  } 
 }
+  
+
 
 
 
